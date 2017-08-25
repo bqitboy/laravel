@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('index', 'DangranController@index');
+Route::get('getMemberList', 'DangranController@getMemberList');
+Route::get('addMember', 'DangranController@addMember');
