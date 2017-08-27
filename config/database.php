@@ -41,7 +41,10 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            //'host' => env('DB_HOST', '127.0.0.1'),
+            //在Mac宿主机执行的命令，所以需要指定映射的端口号：33060
+            //如果直接在homestead虚机中执行是不用指定的，因为默认就是3306
+            'host' => env('DB_HOST', 'localhost') . ('homestead' == gethostname() ? null : ':33060'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),

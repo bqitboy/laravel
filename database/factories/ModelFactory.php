@@ -31,5 +31,14 @@ $factory->define(App\Models\Member::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'cate_id' => $faker->integer()->unsigned()
+    ];
+});
+
+$factory->define(App\Models\MemberCategory::class, function (Faker\Generator $faker) {
+
+    return [
+        'id' => $faker->increments(),
+        'title' => $faker->string(100)
     ];
 });

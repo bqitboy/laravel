@@ -56,4 +56,141 @@ class DangranController extends Controller
         $bool = DB::insert($sql, $val);
         echo $bool;
     }
+
+    public function getOne()
+    {
+        $one = DB::table('members')->orderBy('id','asc')->first();
+        dd($one);
+    }
+
+    //获取单个字段值
+    public function getValue()
+    {
+        $name = DB::table('members')->where('id',1)->value('name');
+        echo $name;
+    }
+
+    //获取一列值
+    public function getValueList()
+    {
+        $names = DB::table('members')->pluck('name');
+        dd($names);
+    }
+
+    //指定查询字段 && 追加字段
+    public function getData()
+    {
+        //$list = DB::table('members')->select('id','name','remember_token')->get();
+
+        //追加查询字段
+        $list = DB::table('members')->select('id','name','remember_token');
+        $lists = $list->addSelect('password')->get();
+        dd($lists);
+    }
+
+    //原始表达式
+    public function getLists()
+    {
+//        $list = DB::table('members')
+//                    ->select(DB::raw('count(*) as name'))
+//                    ->where('id','<>',1)
+//                    ->get();
+
+        $list = DB::table('members')
+                    ->where('name','like','%1')
+                    ->get();
+        dd($list);
+    }
+
+    //where 条件查询
+    public function query1()
+    {
+        $list = DB::table('members')
+                    ->where('id','>=',2)
+                    ->get();
+        dd($list);
+    }
+
+    public function query2()
+    {
+        $list = DB::table('members')
+                    ->where([
+                        ['id','>=',4],
+                        ['name','like','%dan%']
+                    ])
+                    ->get();
+        dd($list);
+    }
+
+    //or语法
+    public function query3()
+    {
+        $list = DB::table('members')
+                    ->where('name','like','%h%')
+                    ->orWhere('id','>=',3)
+                    ->get();
+        dd($list);
+    }
+
+    //whereBetween && whereNotBetween
+    public function query4()
+    {
+        $list = DB::table('members')
+                    ->whereBetween('id',[1,5])
+                    ->get();
+        dd($list);
+    }
+
+    //whereIn && whereNotIn
+    public function query5()
+    {
+        $list = DB::table('members')
+                    ->whereIn('id',[1,2,3])
+                    ->get();
+        dd($list);
+    }
+
+    //whereNull && whereNotNull
+    public function query6()
+    {
+        //获取该字段为null到数据列表
+        $list = DB::table('members')
+                    ->whereNull('updated_at')
+                    ->get();
+        dd($list);
+    }
+
+    //
+    public function query7()
+    {
+        $list = DB::table('members')
+                    ->whereDate('created_at', '2017-8-25')
+                    ->get();
+        dd($list);
+    }
+
+    //join
+    public function query8()
+    {
+        $list = DB::table('members')
+                    ->join('membercategorys', 'members.cate_id', '=', 'membercategorys.id')
+                    ->get();
+        dd($list);
+    }
+
+    //Eloquent ORM
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
