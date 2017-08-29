@@ -172,13 +172,38 @@ class DangranController extends Controller
     //join
     public function query8()
     {
-        $list = DB::table('members')
-                    ->join('membercategorys', 'members.cate_id', '=', 'membercategorys.id')
+        $list = DB::table('members as a')
+                    ->select('a.id', 'a.name', 'b.name as member_type')
+                    ->join('membercategorys as b', 'a.cate_id', '=', 'b.id')
                     ->get();
         dd($list);
     }
 
     //Eloquent ORM
+    public function query9()
+    {
+        //$list = Member::all();
+        $list = Member::where('id','>',2)
+                        ->orderBy('id','desc')
+                        ->take(10)
+                        ->get();
+
+        dd($list);
+    }
+
+    //
+    public function query10()
+    {
+        $one = Member::find(1)->toJson();
+        //dd($one);
+        return $one;
+    }
+
+    public function query11()
+    {
+        $one = Member::findOrFail(20);
+        return $one;
+    }
     
 
 

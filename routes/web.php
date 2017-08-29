@@ -31,3 +31,6 @@ Route::get('query5', 'DangranController@query5');
 Route::get('query6', 'DangranController@query6');
 Route::get('query7', 'DangranController@query7');
 Route::get('query8', 'DangranController@query8');
+Route::get('query9', 'DangranController@query9');
+Route::get('query10', 'DangranController@query10');
+Route::get('query11', 'DangranController@query11');
