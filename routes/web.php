@@ -34,3 +34,7 @@ Route::get('query8', 'DangranController@query8');
 Route::get('query9', 'DangranController@query9');
 Route::get('query10', 'DangranController@query10');
 Route::get('query11', 'DangranController@query11');
+Route::get('query12', 'DangranController@query12');
+Route::get('dangran1', 'DangranController@dangran1');
+Route::get('delete1', 'DangranController@delete1');
+Route::get('getSoftDeleteList', 'DangranController@getSoftDeleteList');

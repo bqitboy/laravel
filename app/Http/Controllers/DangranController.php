@@ -199,12 +199,67 @@ class DangranController extends Controller
         return $one;
     }
 
+    //查找不到 抛出异常
     public function query11()
     {
-        $one = Member::findOrFail(20);
-        return $one;
+        $one = Member::findOrFail(15);
+        dd($one);
     }
-    
+
+    //firstOrCreate 获取第一条数据 不存在 就会创建 并返回结果集
+    public function query12()
+    {
+        $data = [
+            'name'     =>   'meinv1',
+            'email'    =>   'aaaa1@qq.com',
+            'password' =>   bcrypt('213232'),
+            'remember_token'  =>  str_random(10),
+            'created_at'      =>  date('Y-m-d H:i:s'),
+            'cate_id'         =>   1,
+
+        ];
+        $first = Member::firstOrCreate($data);
+
+        dd($first);
+    }
+
+    //updateOrCreate 存在既更新 不存在 则 写入
+    public function dangran1()
+    {
+        $result = Member::updateOrCreate(
+            ['name'=>'meinv1'],
+            ['email'=>'aaaa2@qq.com']
+        );
+        dd($result);
+
+    }
+
+    //delete 删除操作
+    public function delete1()
+    {
+        //DB facade
+        //$num = DB::delete('delete from members where id = ?', [ 1 ]);
+
+        //数据查询构造器
+        //$num = DB::table('members')->where('id','<','4')->delete();
+
+        //Eloquent ORM
+        //$num = Member::where('id','<=',5)->delete();
+
+        //destroy
+        $num = Member::destroy([8, 9]);
+
+        echo $num;
+    }
+
+    //强制查询被软删除的实例 withTrashed 只查询被软删除的实例
+    public function getSoftDeleteList()
+    {
+        //$list = Member::withTrashed()->get();
+
+        $list = Member::onlyTrashed()->get();
+        dd($list);
+    }
 
 
 
