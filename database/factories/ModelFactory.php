@@ -42,3 +42,5 @@ $factory->define(App\Models\MemberCategory::class, function (Faker\Generator $fa
         'title' => $faker->string(100)
     ];
 });
+
+
